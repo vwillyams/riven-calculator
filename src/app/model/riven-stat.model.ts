@@ -3,4 +3,5 @@ export class RivenStat {
   prefix?: string;
   suffix?: string;
   restrict?: string;
+  desirability?: string;
 }
