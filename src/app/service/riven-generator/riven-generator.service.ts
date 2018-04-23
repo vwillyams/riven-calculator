@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {RivenStat} from '../../model/riven-stat.model';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
-import {StatDesirability} from '../../const/stat-desirability';
 import {StatResult} from './dto/stat-result.model';
 import {SingleRiven} from './dto/single-riven.model';
 import {RivenStatFilterService} from './riven-stat-filter.service';
+import {ProbabilityResult} from './dto/probability-result.model';
 import * as _ from 'lodash';
 
 @Injectable()
@@ -26,17 +26,17 @@ export class RivenGeneratorService {
     this.negativeStats = stats;
   }
 
-  calculate(weaponType: string, negativeAllowed: boolean): Observable<string> {
+  calculate(weaponType: string, negativeAllowed: boolean): Observable<ProbabilityResult> {
     const filtered = this.rivenFilter.filter(this.positiveStats, this.negativeStats, weaponType, negativeAllowed);
-    const results =
-      [
-        this.calcProbability(filtered.positives, filtered.negatives, 2, 0),
-        this.calcProbability(filtered.positives, filtered.negatives, 3, 0),
-        this.calcProbability(filtered.positives, filtered.negatives, 2, 1),
-        this.calcProbability(filtered.positives, filtered.negatives, 3, 1)
-      ];
-    const total = _.mean(results);
-    return of(`raw probabilities: ${JSON.stringify(results)}, TOTAL: ${total}`);
+    const result = new ProbabilityResult();
+    result.rolls = [
+      this.calcProbability(filtered.positives, filtered.negatives, 2, 0),
+      this.calcProbability(filtered.positives, filtered.negatives, 3, 0),
+      this.calcProbability(filtered.positives, filtered.negatives, 2, 1),
+      this.calcProbability(filtered.positives, filtered.negatives, 3, 1)
+    ];
+    result.mean = _.mean(result.rolls);
+    return of(result);
   }
 
   private calcProbability(positives, negatives, numPositives: number, numNegatives: number): number {
