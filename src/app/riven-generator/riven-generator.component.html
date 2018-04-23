@@ -9,10 +9,12 @@
     <option *ngFor="let desirability of desirabilities" [value]="desirability">{{desirability}}
     </option>
   </select>
-  <hr>
   <div *ngIf="selectedType">
-    <app-riven-stat-selector [rivenStats]="rivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
     <hr>
-    <app-riven-stat-selector *ngIf="negativeStats !== 'Not Allowed'" [negative]="true" [rivenStats]="rivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
+    <app-riven-stat-selector [rivenStats]="positiveRivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
+    <hr>
+    <app-riven-stat-selector *ngIf="negativeStats !== 'Not Allowed'" [negative]="true" [rivenStats]="negativeRivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
+    <hr>
+    <button (click)="generate()">Generate!</button>
   </div>
 </form>

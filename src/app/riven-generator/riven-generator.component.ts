@@ -11,7 +11,8 @@ import {StatDesirability} from '../const/stat-desirability';
 })
 export class RivenGeneratorComponent implements OnInit {
 
-  rivenStats: RivenStat[];
+  positiveRivenStats: RivenStat[];
+  negativeRivenStats: RivenStat[];
   weaponTypes: string[];
   selectedType: string;
   desirabilities: string[];
@@ -25,7 +26,14 @@ export class RivenGeneratorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.rivenStatsService.getRivenStats().subscribe(rivenStats => this.rivenStats = rivenStats);
+    this.rivenStatsService.getRivenStats().subscribe(rivenStats => {
+      this.positiveRivenStats = rivenStats;
+      this.negativeRivenStats = rivenStats;
+    });
   }
+
+  generate() {
+
+  };
 
 }

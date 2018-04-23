@@ -1,5 +1,5 @@
 export const StatDesirability = {
-  allowed: 'Allowed',
-  notAllowed: 'Not Allowed',
-  required: 'Required',
+  plus: 'Allowed',
+  minus: 'Not Allowed',
+  plusPlus: 'Required',
 };

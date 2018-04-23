@@ -8,6 +8,7 @@ import {RivenStatsService} from './service/riven-stats.service';
 import { RestrictByWeaponPipe } from './restrict-by-weapon.pipe';
 import { RivenStatSelectorComponent } from './riven-stat-selector/riven-stat-selector.component';
 import {FormsModule} from '@angular/forms';
+import { RivenGeneratorService } from './riven-generator.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {FormsModule} from '@angular/forms';
     FormsModule
   ],
   providers: [
-    RivenStatsService
+    RivenStatsService,
+    RivenGeneratorService
   ],
   bootstrap: [AppComponent]
 })
