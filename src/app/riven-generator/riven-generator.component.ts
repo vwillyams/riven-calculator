@@ -34,8 +34,8 @@ export class RivenGeneratorComponent implements OnInit {
     });
   }
 
-  generate() {
-    this.rivenGenerator.generate().subscribe(results => this.results = results);
+  generate(weaponType: string, negativeAllowed: boolean) {
+    this.rivenGenerator.generate(weaponType, negativeAllowed).subscribe(results => this.results = results);
   }
 
 }

@@ -15,7 +15,7 @@
     <hr>
     <app-riven-stat-selector *ngIf="negativeStats !== 'Not Allowed'" [negative]="true" [rivenStats]="negativeRivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
     <hr>
-    <button (click)="generate()">Generate!</button>
+    <button (click)="generate(selectedType, negativeStats)">Generate!</button>
   </div>
   <div *ngIf="results">
     <div *ngFor="let result of results">
