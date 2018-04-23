@@ -4,6 +4,7 @@ import {RivenStat} from '../model/riven-stat.model';
 import {WeaponTypes} from '../const/weapon-type.values';
 import {StatDesirability} from '../const/stat-desirability';
 import {RivenGeneratorService} from '../service/riven-generator.service';
+import {SingleRiven} from '../model/single-riven.model';
 
 @Component({
   selector: 'app-riven-generator',
@@ -18,7 +19,8 @@ export class RivenGeneratorComponent implements OnInit {
   selectedType: string;
   desirabilities: string[];
   negativeStats: string;
-  results: string[]; // TODO
+  rivenResult: SingleRiven;
+  resultString: string; // TODO
 
   constructor(private rivenStatsService: RivenStatsService, private rivenGenerator: RivenGeneratorService) {
     this.weaponTypes = Object.values(WeaponTypes);
@@ -35,7 +37,10 @@ export class RivenGeneratorComponent implements OnInit {
   }
 
   generate(weaponType: string, negativeAllowed: boolean) {
-    this.rivenGenerator.generate(weaponType, negativeAllowed).subscribe(results => this.results = results);
+    this.rivenGenerator.generate(weaponType, negativeAllowed).subscribe(results => {
+      this.rivenResult = results;
+      this.resultString = JSON.stringify(results);
+    });
   }
 
 }

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {StatDesirability} from '../const/stat-desirability';
 import {StatResult} from '../model/stat-result.model';
+import {SingleRiven} from '../model/single-riven.model';
 import * as _ from 'lodash';
 
 @Injectable()
@@ -20,7 +21,7 @@ export class RivenGeneratorService {
     this.negativeStats = stats;
   }
 
-  generate(weaponType: string, negativeAllowed: boolean): Observable<string[]> {
+  generate(weaponType: string, negativeAllowed: boolean): Observable<SingleRiven> {
     console.log(weaponType);
 
     const existingPositives = this.positiveStats.filter(stat => (!stat.restrict || stat.restrict === weaponType));
@@ -55,12 +56,12 @@ export class RivenGeneratorService {
     return of(this.generateOne(positives, negatives));
   }
 
-  generateOne(positives, negatives): string[] {
+  generateOne(positives, negatives): SingleRiven {
     const MAX_ATTEMPTS = 10000;
-    const result = [];
+    const result = new SingleRiven();
 
     if (_.get(negatives, 'plusPlus.length') > 1) {
-      return ['CANNOT GENERATE A RIVEN WITH MORE THAN ONE NEGATIVE PROPERTY'];
+      return {error: 'CANNOT GENERATE A RIVEN WITH MORE THAN ONE NEGATIVE PROPERTY'};
     }
 
     for (let attempts = 1; attempts < MAX_ATTEMPTS; attempts++) {
@@ -80,16 +81,16 @@ export class RivenGeneratorService {
         continue;
       }
 
-      result.push(`ATTEMPTS: ${attempts}`);
-      result.push(`NEGATIVES: ${JSON.stringify(negativeResult.stats)}`);
-      result.push(`POSITIVES: ${JSON.stringify(positiveResult.stats)}`);
-      result.push(`DEBUG INFO: POSITIVES: ${JSON.stringify(positives)}, NEGATIVES: ${JSON.stringify(negatives)}`);
+      result.attempts = attempts;
+      result.negative = negativeResult.stats[0];
+      result.positives = positiveResult.stats;
+      result.debug = `DEBUG INFO: POSITIVES: ${JSON.stringify(positives)}, NEGATIVES: ${JSON.stringify(negatives)}`;
       return result;
     }
-    return [
-      `NOTHING WAS GENERATED AFTER ${MAX_ATTEMPTS} ATTEMPTS, THERE IS PROBABLY AN ERROR IN YOUR SELECTIONS`,
-      `DEBUG INFO: POSITIVES: ${JSON.stringify(positives)}, NEGATIVES: ${JSON.stringify(negatives)}`
-    ];
+    return {
+      error: `NOTHING WAS GENERATED AFTER ${MAX_ATTEMPTS} ATTEMPTS, THERE IS PROBABLY AN ERROR IN YOUR SELECTIONS`,
+      debug: `DEBUG INFO: POSITIVES: ${JSON.stringify(positives)}, NEGATIVES: ${JSON.stringify(negatives)}`
+    };
   }
 
   private generateNegativeStats(negatives): StatResult {

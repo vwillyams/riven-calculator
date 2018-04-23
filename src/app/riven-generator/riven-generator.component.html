@@ -17,10 +17,7 @@
     <hr>
     <button (click)="generate(selectedType, negativeStats)">Generate!</button>
   </div>
-  <div *ngIf="results">
-    <div *ngFor="let result of results">
-      <hr *ngIf="!first">
-      <span>{{result}}</span>
-    </div>
+  <div *ngIf="resultString">
+    <div>{{resultString}}</div>
   </div>
 </form>
