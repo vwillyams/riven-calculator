@@ -33,6 +33,10 @@ export class RivenStatSelectorComponent implements OnInit, OnChanges {
     this.setup();
   }
 
+  updateDesirability(statName: string, type: boolean, newValue: string) {
+    // TODO
+  }
+
   private setup() {
     this.rivenService.updateNegatives(this.positiveStats);
     this.rivenService.updatePositives(this.negativeStats);

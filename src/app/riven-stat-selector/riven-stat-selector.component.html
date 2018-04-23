@@ -2,13 +2,21 @@
   <div fxLayout="row">
     <div class="positive-stat" fxFlex="50">
       {{rivenStat.name}} :
-      <mat-button-toggle-group class="form-control" [(ngModel)]="combined[rivenStat.name].positive.posDesirability" name="desirability">
+      <mat-button-toggle-group
+        [value]="combined[rivenStat.name].positive.posDesirability"
+        (change)="updateDesirability(rivenStat.name, true, combined[rivenStat.name].positive.posDesirability)"
+        name="{{rivenStat.name + ':positive'}}">
+
         <mat-button-toggle *ngFor="let type of desirabilities" [value]="type">{{type}}</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
     <div class="negative-stat" *ngIf="negativeAllowed && !rivenStat.negativeBlocked" fxFlex="50">
       Desirability as Negative stat:
-      <mat-button-toggle-group class="form-control" [(ngModel)]="combined[rivenStat.name].negative.negDesirability" name="desirability">
+      <mat-button-toggle-group
+        [value]="combined[rivenStat.name].negative.negDesirability"
+        (change)="updateDesirability(rivenStat.name, false, combined[rivenStat.name].negative.negDesirability)"
+        name="{{rivenStat.name + ':negative'}}">
+
         <mat-button-toggle *ngFor="let type of desirabilities" [value]="type">{{type}}</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
