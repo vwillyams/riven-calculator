@@ -179,6 +179,9 @@ export class RivenGeneratorService {
     if (!negatives && hasNegatives) {
       return {hasError: true};
     }
+    if (!hasNegatives) {
+      return {stats: []};
+    }
 
     const stat = negatives.existing[_.random(negatives.existing.length)];
     if (negatives.plusPlus.length && negatives.plusPlus.indexOf(stat) === -1) {

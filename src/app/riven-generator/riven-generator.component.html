@@ -1,24 +1,34 @@
-<form>
-  <label for="weaponType">Weapon Type:</label>
-  <select id="weaponType" [(ngModel)]="selectedType" name="selectedType" required>
-    <option *ngFor="let type of weaponTypes" [value]="type">{{type}}
-    </option>
-  </select>
-  <label for="negativeStats">Negative Stats:</label>
-  <select id="negativeStats" [(ngModel)]="negativeStats" name="negativeStats" required>
-    <option *ngFor="let desirability of desirabilities" [value]="desirability">{{desirability}}
-    </option>
-  </select>
-  <div *ngIf="selectedType">
-    <hr>
-    <app-riven-stat-selector [rivenStats]="positiveRivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
-    <hr>
-    <app-riven-stat-selector *ngIf="negativeStats !== 'Not Allowed'" [negative]="true" [rivenStats]="negativeRivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
-    <hr>
-    <button (click)="generateOne(selectedType, negativeStats)">Generate One!</button>
-    <button (click)="calculate(selectedType, negativeStats)">Calculate Statistics!</button>
-  </div>
+<mat-card>
+  <form>
+    <mat-card-title>
+      Riven Calculator
+    </mat-card-title>
+    <mat-card-subtitle fxLayout="row" fxLayoutAlign="center">
+      <mat-form-field>
+        <label for="weaponType">Weapon Type:</label>
+        <mat-select id="weaponType" [(ngModel)]="selectedType" name="selectedType" required>
+          <mat-option *ngFor="let type of weaponTypes" [value]="type">{{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <label for="negativeStats">Negative Stats:</label>
+        <mat-select id="negativeStats" [(ngModel)]="negativeStats" name="negativeStats" required>
+          <mat-option *ngFor="let desirability of desirabilities" [value]="desirability">{{desirability}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-subtitle>
+    <mat-card-content class="stat-selection" *ngIf="selectedType" fxLayout="row" fxLayoutAlign="space-between">
+      <app-riven-stat-selector [rivenStats]="positiveRivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
+      <app-riven-stat-selector *ngIf="negativeStats !== 'Not Allowed'" [negative]="true" [rivenStats]="negativeRivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
+    </mat-card-content>
+    <mat-card-actions *ngIf="selectedType" fxLayout="row" fxLayoutAlign="center">
+      <button mat-button (click)="generateOne(selectedType, negativeStats)">Generate One!</button>
+      <button mat-button (click)="calculate(selectedType, negativeStats)">Calculate Statistics!</button>
+    </mat-card-actions>
+  </form>
   <div *ngIf="resultString">
     <div>{{resultString}}</div>
   </div>
-</form>
+</mat-card>
