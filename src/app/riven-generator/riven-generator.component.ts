@@ -3,8 +3,8 @@ import {RivenStatsService} from '../service/riven-stats.service';
 import {RivenStat} from '../model/riven-stat.model';
 import {WeaponTypes} from '../const/weapon-type.values';
 import {StatDesirability} from '../const/stat-desirability';
-import {RivenGeneratorService} from '../service/riven-generator.service';
-import {SingleRiven} from '../model/single-riven.model';
+import {RivenGeneratorService} from '../service/riven-generator/riven-generator.service';
+import {SingleRiven} from '../service/riven-generator/dto/single-riven.model';
 
 @Component({
   selector: 'app-riven-generator',
@@ -36,9 +36,15 @@ export class RivenGeneratorComponent implements OnInit {
     });
   }
 
-  generate(weaponType: string, negativeAllowed: boolean) {
+  generateOne(weaponType: string, negativeAllowed: boolean) {
     this.rivenGenerator.generate(weaponType, negativeAllowed).subscribe(results => {
       this.rivenResult = results;
+      this.resultString = JSON.stringify(results);
+    });
+  }
+
+  calculate(weaponType: string, negativeAllowed: boolean) {
+    this.rivenGenerator.calculate(weaponType, negativeAllowed).subscribe(results => {
       this.resultString = JSON.stringify(results);
     });
   }

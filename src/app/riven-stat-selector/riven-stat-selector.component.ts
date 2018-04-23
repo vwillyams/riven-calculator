@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RivenStat} from '../model/riven-stat.model';
 import {StatDesirability} from '../const/stat-desirability';
-import {RivenGeneratorService} from '../service/riven-generator.service';
+import {RivenGeneratorService} from '../service/riven-generator/riven-generator.service';
 
 @Component({
   selector: 'app-riven-stat-selector',
