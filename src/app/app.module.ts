@@ -14,7 +14,7 @@ import {RivenStatFilterService} from './service/riven-generator/riven-stat-filte
 // ngMaterial
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {MatCardModule, MatButtonModule, MatFormFieldModule, MatSelectModule} from '@angular/material';
+import {MatCardModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatButtonToggleModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,8 @@ import {MatCardModule, MatButtonModule, MatFormFieldModule, MatSelectModule} fro
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonToggleModule
   ],
   providers: [
     RivenStatsService,

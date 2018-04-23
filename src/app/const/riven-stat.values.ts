@@ -7,7 +7,7 @@ export const RivenStats: RivenStat[] = [
     name: 'Ammo Maximum',
     prefix: 'Ampi',
     suffix: 'Bin',
-    restrict: WeaponTypes.Melee,
+    restrict: WeaponTypes.Ranged,
     posDesirability: StatDesirability.minus,
     negDesirability: StatDesirability.plus
   }),

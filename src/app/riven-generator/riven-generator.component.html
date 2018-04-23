@@ -20,8 +20,7 @@
       </mat-form-field>
     </mat-card-subtitle>
     <mat-card-content class="stat-selection" *ngIf="selectedType" fxLayout="row" fxLayoutAlign="space-between">
-      <app-riven-stat-selector [rivenStats]="positiveRivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
-      <app-riven-stat-selector *ngIf="negativeStats !== 'Not Allowed'" [negative]="true" [rivenStats]="negativeRivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
+      <app-riven-stat-selector [negative]="negativeStats" [positiveStats]="positiveRivenStats" [negativeStats]="negativeRivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
     </mat-card-content>
     <mat-card-actions *ngIf="selectedType" fxLayout="row" fxLayoutAlign="center">
       <button mat-button (click)="generateOne(selectedType, negativeStats)">Generate One!</button>

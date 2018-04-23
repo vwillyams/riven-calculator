@@ -1,11 +1,17 @@
-<div *ngFor="let rivenStat of rivenStats | restrictByWeapon:selectedType">
-  <div *ngIf="!negative || !rivenStat.negativeBlocked">
-    {{rivenStat.name}} :
-    <select *ngIf="negative" class="form-control" [(ngModel)]="rivenStat.negDesirability" name="desirability">
-      <option *ngFor="let type of desirabilities" [value]="type">{{type}}</option>
-    </select>
-    <select *ngIf="!negative" class="form-control" [(ngModel)]="rivenStat.posDesirability" name="desirability">
-      <option *ngFor="let type of desirabilities" [value]="type">{{type}}</option>
-    </select>
+<div *ngFor="let rivenStat of positiveStats | restrictByWeapon:selectedType">
+  <div fxLayout="row">
+    <div class="positive-stat" fxFlex="50">
+      {{rivenStat.name}} :
+      <mat-button-toggle-group class="form-control" [(ngModel)]="combined[rivenStat.name].positive.posDesirability" name="desirability">
+        <mat-button-toggle *ngFor="let type of desirabilities" [value]="type">{{type}}</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div class="negative-stat" *ngIf="negativeAllowed && !rivenStat.negativeBlocked" fxFlex="50">
+      Desirability as Negative stat:
+      <mat-button-toggle-group class="form-control" [(ngModel)]="combined[rivenStat.name].negative.negDesirability" name="desirability">
+        <mat-button-toggle *ngFor="let type of desirabilities" [value]="type">{{type}}</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
   </div>
+  <hr>
 </div>
