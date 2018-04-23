@@ -1,0 +1,6 @@
+<div *ngFor="let rivenStat of rivenStats | restrictByWeapon:selectedType">
+  {{rivenStat.name}} :
+  <select class="form-control">
+    <option *ngFor="let type of desirabilities" [value]="rivenStat.desirability">{{type}}</option>
+  </select>
+</div>

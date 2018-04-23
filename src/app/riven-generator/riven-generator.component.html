@@ -1,15 +1,18 @@
 <form>
-  <label for="weaponType">Weapon Type</label>
-  <select class="form-control" id="weaponType" required>
-    <option *ngFor="let type of weaponTypes" [value]="selectedType">{{type}}
+  <label for="weaponType">Weapon Type:</label>
+  <select id="weaponType" [(ngModel)]="selectedType" name="selectedType" required>
+    <option *ngFor="let type of weaponTypes" [value]="type">{{type}}
     </option>
   </select>
+  <label for="negativeStats">Negative Stats:</label>
+  <select id="negativeStats" [(ngModel)]="negativeStats" name="negativeStats" required>
+    <option *ngFor="let desirability of desirabilities" [value]="desirability">{{desirability}}
+    </option>
+  </select>
+  <hr>
   <div *ngIf="selectedType">
-    <div *ngFor="let rivenStat of rivenStats | restrictByWeapon: selectedType">
-      {{rivenStat.name}} :
-      <select class="form-control">
-        <option *ngFor="let type of desirabilities" [value]="rivenStat.desirability">{{type}}</option>
-      </select>
-    </div>
+    <app-riven-stat-selector [rivenStats]="rivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
+    <hr>
+    <app-riven-stat-selector *ngIf="negativeStats !== 'Not Allowed'" [negative]="true" [rivenStats]="rivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
   </div>
 </form>

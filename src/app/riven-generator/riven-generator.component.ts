@@ -13,13 +13,15 @@ export class RivenGeneratorComponent implements OnInit {
 
   rivenStats: RivenStat[];
   weaponTypes: string[];
-  desirabilities: string[];
   selectedType: string;
+  desirabilities: string[];
+  negativeStats: string;
 
   constructor(private rivenStatsService: RivenStatsService) {
     this.weaponTypes = Object.values(WeaponTypes);
+    this.selectedType = this.weaponTypes[0];
     this.desirabilities = Object.values(StatDesirability);
-    this.selectedType = Object.values(WeaponTypes)[0];
+    this.negativeStats = this.desirabilities[0];
   }
 
   ngOnInit() {
