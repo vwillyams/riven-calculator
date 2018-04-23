@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RivenStat} from '../model/riven-stat.model';
 import {StatDesirability} from '../const/stat-desirability';
-import {OnChanges, SimpleChanges} from '@angular/core';
 import {RivenGeneratorService} from '../service/riven-generator.service';
 
 @Component({
@@ -9,7 +8,7 @@ import {RivenGeneratorService} from '../service/riven-generator.service';
   templateUrl: './riven-stat-selector.component.html',
   styleUrls: ['./riven-stat-selector.component.css']
 })
-export class RivenStatSelectorComponent implements OnInit, OnChanges {
+export class RivenStatSelectorComponent implements OnInit {
 
   @Input() rivenStats: RivenStat[];
   @Input() selectedType: String;
@@ -21,15 +20,12 @@ export class RivenStatSelectorComponent implements OnInit, OnChanges {
     this.desirabilities = Object.values(StatDesirability);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (this.negative) {
-      this.rivenService.updateNegatives(changes['rivenStats'].currentValue);
-    } else {
-      this.rivenService.updatePositives(changes['rivenStats'].currentValue);
-    }
-  }
-
   ngOnInit() {
+    if (this.negative) {
+      this.rivenService.updateNegatives(this.rivenStats);
+    } else {
+      this.rivenService.updatePositives(this.rivenStats);
+    }
   }
 
 }

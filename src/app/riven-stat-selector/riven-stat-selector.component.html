@@ -1,7 +1,10 @@
 <div *ngFor="let rivenStat of rivenStats | restrictByWeapon:selectedType">
   <div *ngIf="!negative || !rivenStat.negativeBlocked">
     {{rivenStat.name}} :
-    <select class="form-control" [(ngModel)]="negative ? rivenStat.negDesirability : rivenStat.posDesirability" name="desirability">
+    <select *ngIf="negative" class="form-control" [(ngModel)]="rivenStat.negDesirability" name="desirability">
+      <option *ngFor="let type of desirabilities" [value]="type">{{type}}</option>
+    </select>
+    <select *ngIf="!negative" class="form-control" [(ngModel)]="rivenStat.posDesirability" name="desirability">
       <option *ngFor="let type of desirabilities" [value]="type">{{type}}</option>
     </select>
   </div>
