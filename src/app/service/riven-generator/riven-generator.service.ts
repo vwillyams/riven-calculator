@@ -32,7 +32,55 @@ export class RivenGeneratorService {
       this.calcProbability(filtered.positives, filtered.negatives, 3, 1)
     ];
     result.mean = _.mean(result.rolls);
+    if (result.mean > 0) {
+      result.requiredRolls = this.getRolls(result.mean);
+      result.kuva = this.getKuva(result.requiredRolls);
+    }
     return of(result);
+  }
+
+  // Monte Carlo solution because mathematicians are such fucking nerds
+  private getRolls(mean: number): number {
+    const MAX_ATTEMPTS = 10000;
+    const MAX_ROLLS = 100000;
+    let sumRolls = 0;
+    for (let attempts = 0; attempts < MAX_ATTEMPTS; attempts++) {
+      for (let rolls = 0; rolls < MAX_ROLLS; rolls++) {
+        sumRolls++;
+        if (Math.random() < mean) {
+          break;
+        }
+      }
+    }
+    return sumRolls / MAX_ATTEMPTS;
+  }
+
+  private getKuva(rolls: number): number {
+    const KUVA_REQS = [
+      900,
+      1000,
+      1200,
+      1400,
+      1700,
+      2000,
+      2350,
+      2750,
+      3150,
+      3500
+    ];
+    let sum = 0;
+    const numRolls = Math.floor(rolls);
+    let roll;
+    for (roll = 0; roll < numRolls; roll++) {
+      if (roll < KUVA_REQS.length) {
+        sum += KUVA_REQS[roll];
+      } else {
+        sum += 3500;
+      }
+    }
+    const lastKuva = roll > KUVA_REQS.length ? 3500 : KUVA_REQS[roll];
+    sum += lastKuva * (rolls - numRolls);
+    return sum;
   }
 
   private calcProbability(positives, negatives, numPositives: number, numNegatives: number): number {
@@ -149,8 +197,7 @@ export class RivenGeneratorService {
       }
 
       const positiveInstance = _.cloneDeep(positives);
-      if (negativeResult.stats.length) {
-        console.log(negativeResult.stats);
+      if (negativeResult.stats.length && !_.isUndefined(negativeResult.stats[0])) {
         _.remove(positiveInstance.existing, {name: negativeResult.stats[0].name});
       }
 
@@ -203,7 +250,6 @@ export class RivenGeneratorService {
         if (requiredPositives.indexOf(stat) === -1) {
           return {hasError: true};
         } else {
-          console.log(stat);
           _.remove(requiredPositives, {name: stat.name});
         }
       }

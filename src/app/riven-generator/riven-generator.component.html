@@ -1,4 +1,12 @@
-<mat-card>
+<mat-card *ngIf="probabilityResult || rivenResult">
+  <mat-card-title>
+    Results
+    <a mat-button href="#stat-select">Back to stat selection</a>
+  </mat-card-title>
+  <app-probability-result [result]="probabilityResult"></app-probability-result>
+  <div>{{rivenResult}}</div>
+</mat-card>
+<mat-card id="stat-select">
   <form>
     <mat-card-title>
       Riven Calculator
@@ -27,7 +35,4 @@
       <button mat-button (click)="calculate(selectedType, negativeStats)">Calculate Statistics!</button>
     </mat-card-actions>
   </form>
-  <div *ngIf="resultString">
-    <div>{{resultString}}</div>
-  </div>
 </mat-card>

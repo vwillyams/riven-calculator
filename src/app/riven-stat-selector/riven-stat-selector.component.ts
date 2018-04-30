@@ -39,24 +39,10 @@ export class RivenStatSelectorComponent implements OnInit, OnChanges {
       _.find(this.rivenStats, {name: statName}).negDesirability = newValue;
     }
     this.rivenService.updateRivens(this.rivenStats);
-    // this.setup();
-    // if (newValue === StatDesirability.plusPlus) {
-    //   // Update opposite value
-    //   if (!type) {
-    //     _.find(this.positiveStats, {name: statName}).posDesirability = StatDesirability.minus;
-    //     this.combined[statName].class = 'required-negative';
-    //   } else {
-    //     _.find(this.negativeStats, {name: statName}).negDesirability = StatDesirability.minus;
-    //     this.combined[statName].class = 'required-positive';
-    //   }
-    // }
   }
 
   private setup() {
-    // this.rivenService.updateNegatives(this.positiveStats);
-    // this.rivenService.updatePositives(this.negativeStats);
     this.negativeAllowed = this.negative !== StatDesirability.minus;
-    // this.rivenService.updateNegatives(this.positiveStats);
-    // this.rivenService.updatePositives(this.negativeStats);
+    this.rivenService.updateRivens(this.rivenStats);
   }
 }

@@ -5,6 +5,7 @@ import {WeaponTypes} from '../const/weapon-type.values';
 import {StatDesirability} from '../const/stat-desirability';
 import {RivenGeneratorService} from '../service/riven-generator/riven-generator.service';
 import {SingleRiven} from '../service/riven-generator/dto/single-riven.model';
+import {ProbabilityResult} from '../service/riven-generator/dto/probability-result.model';
 
 @Component({
   selector: 'app-riven-generator',
@@ -19,7 +20,7 @@ export class RivenGeneratorComponent implements OnInit {
   desirabilities: string[];
   negativeStats: string;
   rivenResult: SingleRiven;
-  resultString: string; // TODO
+  probabilityResult: ProbabilityResult;
 
   constructor(private rivenStatsService: RivenStatsService, private rivenGenerator: RivenGeneratorService) {
     this.weaponTypes = Object.values(WeaponTypes);
@@ -35,16 +36,11 @@ export class RivenGeneratorComponent implements OnInit {
   }
 
   generateOne(weaponType: string, negativeAllowed: boolean) {
-    this.rivenGenerator.generate(weaponType, negativeAllowed).subscribe(results => {
-      this.rivenResult = results;
-      this.resultString = JSON.stringify(results);
-    });
+    this.rivenGenerator.generate(weaponType, negativeAllowed).subscribe(results => this.rivenResult = results);
   }
 
   calculate(weaponType: string, negativeAllowed: boolean) {
-    this.rivenGenerator.calculate(weaponType, negativeAllowed).subscribe(results => {
-      this.resultString = JSON.stringify(results);
-    });
+    this.rivenGenerator.calculate(weaponType, negativeAllowed).subscribe(results => this.probabilityResult = results);
   }
 
 }
