@@ -141,10 +141,8 @@ export class RivenGeneratorService {
 
     if (numNegatives) {
       if (requiredNegatives.length) {
-        console.log(`requiredNegatives: ${requiredNegatives}`);
         negativeChance = 1 / numExistingNegatives;
       } else if (allowedNegatives.length) {
-        console.log(`allowedNegatives: ${allowedNegatives}`);
         negativeChance = numAllowedNegatives / numExistingNegatives;
         allowedOverlap = _.intersectionBy(requiredNegatives, allowedPositives, item => item['name']);
         if (allowedOverlap.length) {
