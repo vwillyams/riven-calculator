@@ -1,7 +1,9 @@
 <div *ngFor="let rivenStat of positiveStats | restrictByWeapon:selectedType">
-  <div fxLayout="row" [ngClass]="combined[rivenStat.name].class">
-    <div class="positive-stat" fxFlex="50">
-      {{rivenStat.name}} :
+  <div class="riven-stat" fxLayout="row" fxLayoutAlign="space-between center" [ngClass]="combined[rivenStat.name].class">
+    <div class="positive-stat" fxLayout="row" fxLayoutAlign="center center">
+      <div class="stat-label">
+        {{rivenStat.name}} :
+      </div>
       <mat-button-toggle-group
         [value]="rivenStat.posDesirability"
         (change)="updateDesirability(rivenStat.name, true, group.value)"
@@ -11,8 +13,10 @@
         <mat-button-toggle *ngFor="let type of desirabilities" [value]="type">{{type}}</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
-    <div class="negative-stat" *ngIf="negativeAllowed && !rivenStat.negativeBlocked" fxFlex="50">
-      Desirability as Negative stat:
+    <div class="negative-stat" fxLayout="row" fxLayoutAlign="center center" *ngIf="negativeAllowed && !rivenStat.negativeBlocked">
+      <div class="stat-label">
+        as Negative:
+      </div>
       <mat-button-toggle-group
         [value]="combined[rivenStat.name].negative.negDesirability"
         (change)="updateDesirability(rivenStat.name, false, group.value)"
@@ -23,5 +27,4 @@
       </mat-button-toggle-group>
     </div>
   </div>
-  <hr>
 </div>

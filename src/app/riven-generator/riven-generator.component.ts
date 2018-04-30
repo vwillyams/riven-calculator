@@ -9,7 +9,7 @@ import {SingleRiven} from '../service/riven-generator/dto/single-riven.model';
 @Component({
   selector: 'app-riven-generator',
   templateUrl: './riven-generator.component.html',
-  styleUrls: ['./riven-generator.component.css']
+  styleUrls: ['./riven-generator.component.scss']
 })
 export class RivenGeneratorComponent implements OnInit {
 

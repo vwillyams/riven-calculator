@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-riven-stat-selector',
   templateUrl: './riven-stat-selector.component.html',
-  styleUrls: ['./riven-stat-selector.component.css']
+  styleUrls: ['./riven-stat-selector.component.scss']
 })
 export class RivenStatSelectorComponent implements OnInit, OnChanges {
 
@@ -40,6 +40,7 @@ export class RivenStatSelectorComponent implements OnInit, OnChanges {
     } else {
       _.find(this.negativeStats, {name: statName}).negDesirability = newValue;
     }
+    this.setup();
     if (newValue === StatDesirability.plusPlus) {
       // Update opposite value
       if (!type) {
@@ -50,8 +51,6 @@ export class RivenStatSelectorComponent implements OnInit, OnChanges {
         this.combined[statName].class = 'required-positive';
       }
     }
-    this.rivenService.updateNegatives(this.negativeStats);
-    this.rivenService.updatePositives(this.positiveStats);
   }
 
   private setup() {
@@ -65,7 +64,17 @@ export class RivenStatSelectorComponent implements OnInit, OnChanges {
           positive: stat,
           negative: this.negativeAllowed ? _.find(this.negativeStats, {name: stat['name']}) : null
         };
+        if (_.get(this.combined, `${stat.name}.positive.posDesirability`) === StatDesirability.plusPlus) {
+          _.find(this.negativeStats, {name: stat.name}).negDesirability = StatDesirability.minus;
+          this.combined[stat.name].class = 'required-positive';
+        }
+        if (_.get(this.combined, `${stat.name}.negative.negDesirability`) === StatDesirability.plusPlus) {
+          _.find(this.positiveStats, {name: stat.name}).posDesirability = StatDesirability.minus;
+          this.combined[stat.name].class = 'required-negative';
+        }
       });
     }
+    this.rivenService.updateNegatives(this.positiveStats);
+    this.rivenService.updatePositives(this.negativeStats);
   }
 }

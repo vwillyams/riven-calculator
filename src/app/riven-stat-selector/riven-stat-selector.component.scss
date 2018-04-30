@@ -1,0 +1,28 @@
+@import '~@angular/material/theming';
+
+.riven-stat {
+  padding: 4px;
+  margin: 4px;
+  @include mat-elevation(1);
+}
+
+.required-negative {
+  background: pink;
+}
+
+.required-positive {
+  background: lightgreen;
+}
+
+.stat-label {
+  width: 220px;
+}
+
+.negative-stat {
+  padding: 0 8px 0 40px;
+  min-width: 320px;
+}
+
+.negative-stat .stat-label {
+  width: 110px;
+}
