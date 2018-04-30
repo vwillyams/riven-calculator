@@ -13,8 +13,7 @@ import {SingleRiven} from '../service/riven-generator/dto/single-riven.model';
 })
 export class RivenGeneratorComponent implements OnInit {
 
-  positiveRivenStats: RivenStat[];
-  negativeRivenStats: RivenStat[];
+  rivenStats: RivenStat[];
   weaponTypes: string[];
   selectedType: string;
   desirabilities: string[];
@@ -31,8 +30,7 @@ export class RivenGeneratorComponent implements OnInit {
 
   ngOnInit() {
     this.rivenStatsService.getRivenStats().subscribe(rivenStats => {
-      this.positiveRivenStats = rivenStats;
-      this.negativeRivenStats = rivenStats;
+      this.rivenStats = rivenStats;
     });
   }
 

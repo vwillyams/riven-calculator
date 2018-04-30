@@ -11,23 +11,19 @@ import * as _ from 'lodash';
 @Injectable()
 export class RivenGeneratorService {
 
-  positiveStats: RivenStat[];
-  negativeStats: RivenStat[];
+  rivenStats: RivenStat[];
 
   constructor(private rivenFilter: RivenStatFilterService) {
 
   }
 
-  updatePositives(stats: RivenStat[]) {
-    this.positiveStats = stats;
+  updateRivens(stats: RivenStat[]) {
+    this.rivenStats = stats;
   }
 
-  updateNegatives(stats: RivenStat[]) {
-    this.negativeStats = stats;
-  }
 
   calculate(weaponType: string, negativeAllowed: boolean): Observable<ProbabilityResult> {
-    const filtered = this.rivenFilter.filter(this.positiveStats, this.negativeStats, weaponType, negativeAllowed);
+    const filtered = this.rivenFilter.filter(this.rivenStats, weaponType, negativeAllowed);
     const result = new ProbabilityResult();
     result.rolls = [
       this.calcProbability(filtered.positives, filtered.negatives, 2, 0),
@@ -133,7 +129,7 @@ export class RivenGeneratorService {
   }
 
   generate(weaponType: string, negativeAllowed: boolean): Observable<SingleRiven> {
-    const filtered = this.rivenFilter.filter(this.positiveStats, this.negativeStats, weaponType, negativeAllowed);
+    const filtered = this.rivenFilter.filter(this.rivenStats, weaponType, negativeAllowed);
     return of(this.generateOne(filtered.positives, filtered.negatives));
   }
 
@@ -154,6 +150,7 @@ export class RivenGeneratorService {
 
       const positiveInstance = _.cloneDeep(positives);
       if (negativeResult.stats.length) {
+        console.log(negativeResult.stats);
         _.remove(positiveInstance.existing, {name: negativeResult.stats[0].name});
       }
 
@@ -206,6 +203,7 @@ export class RivenGeneratorService {
         if (requiredPositives.indexOf(stat) === -1) {
           return {hasError: true};
         } else {
+          console.log(stat);
           _.remove(requiredPositives, {name: stat.name});
         }
       }

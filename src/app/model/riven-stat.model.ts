@@ -6,6 +6,7 @@ export class RivenStat {
   posDesirability?: string;
   negDesirability?: string;
   negativeBlocked: boolean;
+  class: string;
 
   constructor(obj: Object) {
     if (obj) {

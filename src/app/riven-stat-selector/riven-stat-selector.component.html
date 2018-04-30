@@ -1,5 +1,5 @@
-<div *ngFor="let rivenStat of positiveStats | restrictByWeapon:selectedType">
-  <div class="riven-stat" fxLayout="row" fxLayoutAlign="space-between center" [ngClass]="combined[rivenStat.name].class">
+<div *ngFor="let rivenStat of rivenStats | restrictByWeapon:selectedType">
+  <div class="riven-stat" fxLayout="row" fxLayoutAlign="space-between center" [ngClass]="rivenStat.class">
     <div class="positive-stat" fxLayout="row" fxLayoutAlign="center center">
       <div class="stat-label">
         {{rivenStat.name}} :
@@ -18,7 +18,7 @@
         as Negative:
       </div>
       <mat-button-toggle-group
-        [value]="combined[rivenStat.name].negative.negDesirability"
+        [value]="rivenStat.negDesirability"
         (change)="updateDesirability(rivenStat.name, false, group.value)"
         #group="matButtonToggleGroup"
         name="{{rivenStat.name + ':negative'}}">

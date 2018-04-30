@@ -13,13 +13,11 @@ import * as _ from 'lodash';
 })
 export class RivenStatSelectorComponent implements OnInit, OnChanges {
 
-  @Input() positiveStats: RivenStat[];
+  @Input() rivenStats: RivenStat[];
   @Input() selectedType: String;
-  @Input() negativeStats: RivenStat[];
   @Input() negative: string;
 
   negativeAllowed: boolean;
-  combined: object;
   desirabilities: string[];
 
   constructor(private rivenService: RivenGeneratorService) {
@@ -36,45 +34,29 @@ export class RivenStatSelectorComponent implements OnInit, OnChanges {
 
   updateDesirability(statName: string, type: boolean, newValue: string) {
     if (type) {
-      _.find(this.positiveStats, {name: statName}).posDesirability = newValue;
+      _.find(this.rivenStats, {name: statName}).posDesirability = newValue;
     } else {
-      _.find(this.negativeStats, {name: statName}).negDesirability = newValue;
+      _.find(this.rivenStats, {name: statName}).negDesirability = newValue;
     }
-    this.setup();
-    if (newValue === StatDesirability.plusPlus) {
-      // Update opposite value
-      if (!type) {
-        _.find(this.positiveStats, {name: statName}).posDesirability = StatDesirability.minus;
-        this.combined[statName].class = 'required-negative';
-      } else {
-        _.find(this.negativeStats, {name: statName}).negDesirability = StatDesirability.minus;
-        this.combined[statName].class = 'required-positive';
-      }
-    }
+    this.rivenService.updateRivens(this.rivenStats);
+    // this.setup();
+    // if (newValue === StatDesirability.plusPlus) {
+    //   // Update opposite value
+    //   if (!type) {
+    //     _.find(this.positiveStats, {name: statName}).posDesirability = StatDesirability.minus;
+    //     this.combined[statName].class = 'required-negative';
+    //   } else {
+    //     _.find(this.negativeStats, {name: statName}).negDesirability = StatDesirability.minus;
+    //     this.combined[statName].class = 'required-positive';
+    //   }
+    // }
   }
 
   private setup() {
-    this.rivenService.updateNegatives(this.positiveStats);
-    this.rivenService.updatePositives(this.negativeStats);
+    // this.rivenService.updateNegatives(this.positiveStats);
+    // this.rivenService.updatePositives(this.negativeStats);
     this.negativeAllowed = this.negative !== StatDesirability.minus;
-    this.combined = {};
-    if (this.positiveStats) {
-      this.positiveStats.forEach(stat => {
-        this.combined[stat.name] = {
-          positive: stat,
-          negative: this.negativeAllowed ? _.find(this.negativeStats, {name: stat['name']}) : null
-        };
-        if (_.get(this.combined, `${stat.name}.positive.posDesirability`) === StatDesirability.plusPlus) {
-          _.find(this.negativeStats, {name: stat.name}).negDesirability = StatDesirability.minus;
-          this.combined[stat.name].class = 'required-positive';
-        }
-        if (_.get(this.combined, `${stat.name}.negative.negDesirability`) === StatDesirability.plusPlus) {
-          _.find(this.positiveStats, {name: stat.name}).posDesirability = StatDesirability.minus;
-          this.combined[stat.name].class = 'required-negative';
-        }
-      });
-    }
-    this.rivenService.updateNegatives(this.positiveStats);
-    this.rivenService.updatePositives(this.negativeStats);
+    // this.rivenService.updateNegatives(this.positiveStats);
+    // this.rivenService.updatePositives(this.negativeStats);
   }
 }
