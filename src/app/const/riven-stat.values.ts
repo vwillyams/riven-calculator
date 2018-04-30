@@ -69,7 +69,7 @@ export const RivenStats: RivenStat[] = [
     prefix: 'Exi',
     suffix: 'Cta',
     restrict: WeaponTypes.Melee,
-    posDesirability: StatDesirability.plus,
+    posDesirability: StatDesirability.minus,
     negDesirability: StatDesirability.plus
   }),
   new RivenStat({name: 'Fire Rate / Attack Speed', prefix: 'Croni', suffix: 'Dra'}),

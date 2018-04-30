@@ -1,12 +1,15 @@
-<mat-card *ngIf="probabilityResult || rivenResult">
+<mat-card id="riven-results" *ngIf="probabilityResult || rivenResult">
   <mat-card-title>
     Results
-    <a mat-button href="#stat-select">Back to stat selection</a>
   </mat-card-title>
   <app-probability-result [result]="probabilityResult"></app-probability-result>
-  <div>{{rivenResult}}</div>
+  <app-single-result [result]="rivenResult"></app-single-result>
+  <mat-card-actions *ngIf="selectedType" fxLayout="row" fxLayoutAlign="center">
+    <button mat-raised-button color="primary" (click)="generateOne(selectedType, negativeStats)">Generate Another!</button>
+    <button mat-raised-button color="accent" (click)="enableStats()">Back to stat selection</button>
+  </mat-card-actions>
 </mat-card>
-<mat-card id="stat-select">
+<mat-card id="stat-select" *ngIf="statsEnabled">
   <form>
     <mat-card-title>
       Riven Calculator
@@ -30,9 +33,8 @@
     <mat-card-content class="stat-selection" *ngIf="selectedType" fxLayout="row" fxLayoutAlign="space-between">
       <app-riven-stat-selector [negative]="negativeStats" [rivenStats]="rivenStats" [selectedType]="selectedType"></app-riven-stat-selector>
     </mat-card-content>
-    <mat-card-actions *ngIf="selectedType" fxLayout="row" fxLayoutAlign="center">
-      <button mat-button (click)="generateOne(selectedType, negativeStats)">Generate One!</button>
-      <button mat-button (click)="calculate(selectedType, negativeStats)">Calculate Statistics!</button>
-    </mat-card-actions>
   </form>
+  <mat-card-actions *ngIf="selectedType" fxLayout="row" fxLayoutAlign="center">
+    <button mat-raised-button color="primary" (click)="generate(selectedType, negativeStats)">Generate!</button>
+  </mat-card-actions>
 </mat-card>

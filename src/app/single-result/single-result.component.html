@@ -1,0 +1,15 @@
+<div class="single-result" *ngIf="result && !result.errors">
+  <h4>
+    You generated a suitable riven in <strong>{{result.attempts}} attempts!</strong>
+  </h4>
+  <h5>It has the following statistics:</h5>
+  <ul>
+    <li *ngFor="let positive of result.positives" class="positive-stat">
+      (+) {{positive.name}}
+    </li>
+    <li *ngIf="result.negative" class="negative-stat">
+      (-) {{result.negative.name}}
+    </li>
+  </ul>
+  <div>This riven cost <strong>{{result.kuva}} Kuva</strong> to generate</div>
+</div>

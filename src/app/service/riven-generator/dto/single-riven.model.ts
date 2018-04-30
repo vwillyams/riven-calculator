@@ -6,4 +6,5 @@ export class SingleRiven {
   positives?: RivenStat[];
   error?: string;
   debug?: string;
+  kuva?: number;
 }

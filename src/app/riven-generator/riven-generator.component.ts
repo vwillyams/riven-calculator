@@ -21,6 +21,7 @@ export class RivenGeneratorComponent implements OnInit {
   negativeStats: string;
   rivenResult: SingleRiven;
   probabilityResult: ProbabilityResult;
+  statsEnabled = true;
 
   constructor(private rivenStatsService: RivenStatsService, private rivenGenerator: RivenGeneratorService) {
     this.weaponTypes = Object.values(WeaponTypes);
@@ -35,12 +36,28 @@ export class RivenGeneratorComponent implements OnInit {
     });
   }
 
+  generate(weaponType: string, negativeAllowed: boolean) {
+    this.generateOne(weaponType, negativeAllowed);
+    this.rivenGenerator.calculate(weaponType, negativeAllowed).subscribe(results => this.probabilityResult = results);
+  }
+
   generateOne(weaponType: string, negativeAllowed: boolean) {
+    this.disableStats();
     this.rivenGenerator.generate(weaponType, negativeAllowed).subscribe(results => this.rivenResult = results);
   }
 
-  calculate(weaponType: string, negativeAllowed: boolean) {
-    this.rivenGenerator.calculate(weaponType, negativeAllowed).subscribe(results => this.probabilityResult = results);
+  private disableStats() {
+    if (this.statsEnabled) {
+      this.rivenResult = null;
+      this.probabilityResult = null;
+    }
+    this.statsEnabled = false;
+  }
+
+  enableStats() {
+    this.statsEnabled = true;
+    this.rivenResult = null;
+    this.probabilityResult = null;
   }
 
 }

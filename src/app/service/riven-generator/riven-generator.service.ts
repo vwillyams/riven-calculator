@@ -39,6 +39,11 @@ export class RivenGeneratorService {
     return of(result);
   }
 
+  generate(weaponType: string, negativeAllowed: boolean): Observable<SingleRiven> {
+    const filtered = this.rivenFilter.filter(this.rivenStats, weaponType, negativeAllowed);
+    return of(this.generateOne(filtered.positives, filtered.negatives));
+  }
+
   // Monte Carlo solution because mathematicians are such fucking nerds
   private getRolls(mean: number): number {
     const MAX_ATTEMPTS = 10000;
@@ -176,11 +181,6 @@ export class RivenGeneratorService {
     return positiveChance * negativeChance;
   }
 
-  generate(weaponType: string, negativeAllowed: boolean): Observable<SingleRiven> {
-    const filtered = this.rivenFilter.filter(this.rivenStats, weaponType, negativeAllowed);
-    return of(this.generateOne(filtered.positives, filtered.negatives));
-  }
-
   private generateOne(positives, negatives): SingleRiven {
     const MAX_ATTEMPTS = 10000;
     const result = new SingleRiven();
@@ -210,6 +210,7 @@ export class RivenGeneratorService {
       result.negative = negativeResult.stats[0];
       result.positives = positiveResult.stats;
       result.debug = `DEBUG INFO: POSITIVES: ${JSON.stringify(positives)}, NEGATIVES: ${JSON.stringify(negatives)}`;
+      result.kuva = this.getKuva(result.attempts);
       return result;
     }
     return {
@@ -227,7 +228,7 @@ export class RivenGeneratorService {
       return {stats: []};
     }
 
-    const stat = negatives.existing[_.random(negatives.existing.length)];
+    const stat = negatives.existing[_.random(negatives.existing.length - 1)];
     if (negatives.plusPlus.length && negatives.plusPlus.indexOf(stat) === -1) {
       return {hasError: true};
     }
@@ -244,7 +245,7 @@ export class RivenGeneratorService {
     const requiredPositives = _.clone(positives.plusPlus);
 
     for (let i = 0; i < numPositives; i++) {
-      const stat = validPositives[_.random(validPositives.length)];
+      const stat = validPositives[_.random(validPositives.length - 1)];
 
       if (requiredPositives && requiredPositives.length) {
         if (requiredPositives.indexOf(stat) === -1) {

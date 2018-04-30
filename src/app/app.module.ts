@@ -23,6 +23,7 @@ import {RivenGeneratorService} from './service/riven-generator/riven-generator.s
 import {RivenStatFilterService} from './service/riven-generator/riven-stat-filter.service';
 import {ProbabilityResultComponent} from './probability-result/probability-result.component';
 import {SimpleNumberPipe} from './simple-number.pipe';
+import { SingleResultComponent } from './single-result/single-result.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {SimpleNumberPipe} from './simple-number.pipe';
     RivenStatSelectorComponent,
     ProbabilityResultComponent,
     SimpleNumberPipe,
+    SingleResultComponent,
   ],
   imports: [
     BrowserModule,
