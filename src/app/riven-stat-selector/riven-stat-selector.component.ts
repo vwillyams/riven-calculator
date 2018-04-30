@@ -3,6 +3,7 @@ import {RivenStat} from '../model/riven-stat.model';
 import {StatDesirability} from '../const/stat-desirability';
 import {RivenGeneratorService} from '../service/riven-generator/riven-generator.service';
 import {OnChanges, SimpleChanges} from '@angular/core';
+import {NgClass} from '@angular/common';
 import * as _ from 'lodash';
 
 @Component({
@@ -34,7 +35,23 @@ export class RivenStatSelectorComponent implements OnInit, OnChanges {
   }
 
   updateDesirability(statName: string, type: boolean, newValue: string) {
-    // TODO
+    if (type) {
+      _.find(this.positiveStats, {name: statName}).posDesirability = newValue;
+    } else {
+      _.find(this.negativeStats, {name: statName}).negDesirability = newValue;
+    }
+    if (newValue === StatDesirability.plusPlus) {
+      // Update opposite value
+      if (!type) {
+        _.find(this.positiveStats, {name: statName}).posDesirability = StatDesirability.minus;
+        this.combined[statName].class = 'required-negative';
+      } else {
+        _.find(this.negativeStats, {name: statName}).negDesirability = StatDesirability.minus;
+        this.combined[statName].class = 'required-positive';
+      }
+    }
+    this.rivenService.updateNegatives(this.negativeStats);
+    this.rivenService.updatePositives(this.positiveStats);
   }
 
   private setup() {

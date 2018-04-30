@@ -1,10 +1,11 @@
 <div *ngFor="let rivenStat of positiveStats | restrictByWeapon:selectedType">
-  <div fxLayout="row">
+  <div fxLayout="row" [ngClass]="combined[rivenStat.name].class">
     <div class="positive-stat" fxFlex="50">
       {{rivenStat.name}} :
       <mat-button-toggle-group
-        [value]="combined[rivenStat.name].positive.posDesirability"
-        (change)="updateDesirability(rivenStat.name, true, combined[rivenStat.name].positive.posDesirability)"
+        [value]="rivenStat.posDesirability"
+        (change)="updateDesirability(rivenStat.name, true, group.value)"
+        #group="matButtonToggleGroup"
         name="{{rivenStat.name + ':positive'}}">
 
         <mat-button-toggle *ngFor="let type of desirabilities" [value]="type">{{type}}</mat-button-toggle>
@@ -14,7 +15,8 @@
       Desirability as Negative stat:
       <mat-button-toggle-group
         [value]="combined[rivenStat.name].negative.negDesirability"
-        (change)="updateDesirability(rivenStat.name, false, combined[rivenStat.name].negative.negDesirability)"
+        (change)="updateDesirability(rivenStat.name, false, group.value)"
+        #group="matButtonToggleGroup"
         name="{{rivenStat.name + ':negative'}}">
 
         <mat-button-toggle *ngFor="let type of desirabilities" [value]="type">{{type}}</mat-button-toggle>
