@@ -44,7 +44,7 @@ export class RivenGeneratorService {
     return of(this.generateOne(filtered.positives, filtered.negatives));
   }
 
-  // Monte Carlo solution because mathematicians are such fucking nerds
+  // TODO actually this can be easily done without monte carlo methods if I was thinking properly
   private getRolls(mean: number): number {
     const MAX_ATTEMPTS = 10000;
     const MAX_ROLLS = 100000;
@@ -60,6 +60,7 @@ export class RivenGeneratorService {
     return sumRolls / MAX_ATTEMPTS;
   }
 
+  // TODO this produces NaN when rolls are 10, also add testing
   private getKuva(rolls: number): number {
     const KUVA_REQS = [
       900,
