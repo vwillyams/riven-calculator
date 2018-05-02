@@ -35,7 +35,7 @@ export const RivenStats: RivenStat[] = [
     negDesirability: StatDesirability.plus
   }),
   new RivenStat({name: 'Cold Damage', prefix: 'Geli', suffix: 'Do'}),
-  new RivenStat({name: 'Combo Duration', prefix: 'Tempi', suffix: 'Nem', restrict: WeaponTypes.Ranged}),
+  new RivenStat({name: 'Combo Duration', prefix: 'Tempi', suffix: 'Nem', restrict: WeaponTypes.Melee}),
   new RivenStat({name: 'Critical Chance', prefix: 'Crita', suffix: 'Cron'}),
   new RivenStat({
     name: 'Critical Chance on Slide Attack',
