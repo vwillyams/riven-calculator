@@ -34,7 +34,7 @@ export const RivenStats: RivenStat[] = [
     posDesirability: StatDesirability.minus,
     negDesirability: StatDesirability.plus
   }),
-  new RivenStat({name: 'Cold Damage', prefix: 'Geli', suffix: 'Do'}),
+  new RivenStat({name: 'Cold Damage', prefix: 'Geli', suffix: 'Do', negativeBlocked: true}),
   new RivenStat({name: 'Combo Duration', prefix: 'Tempi', suffix: 'Nem', restrict: WeaponTypes.Melee}),
   new RivenStat({name: 'Critical Chance', prefix: 'Crita', suffix: 'Cron'}),
   new RivenStat({
@@ -63,7 +63,7 @@ export const RivenStats: RivenStat[] = [
     posDesirability: StatDesirability.plus,
     negDesirability: StatDesirability.plus
   }),
-  new RivenStat({name: 'Electric Damage', prefix: 'Vexi', suffix: 'Tio'}),
+  new RivenStat({name: 'Electric Damage', prefix: 'Vexi', suffix: 'Tio', negativeBlocked: true}),
   new RivenStat({
     name: 'Finisher Damage',
     prefix: 'Exi',
@@ -78,7 +78,7 @@ export const RivenStats: RivenStat[] = [
     prefix: 'Conci',
     suffix: 'Nak',
     restrict: WeaponTypes.Ranged,
-    posDesirability: StatDesirability.plus,
+    posDesirability: StatDesirability.minus,
     negDesirability: StatDesirability.plus
   }),
   new RivenStat({name: 'Heat Damage', prefix: 'Igni', suffix: 'Pha'}),
@@ -94,7 +94,7 @@ export const RivenStats: RivenStat[] = [
     prefix: 'Arma',
     suffix: 'Tin',
     restrict: WeaponTypes.Ranged,
-    posDesirability: StatDesirability.plus,
+    posDesirability: StatDesirability.minus,
     negDesirability: StatDesirability.plus
   }),
   new RivenStat({name: 'Multishot', prefix: 'Sati', suffix: 'Can', restrict: WeaponTypes.Ranged}),
@@ -118,7 +118,7 @@ export const RivenStats: RivenStat[] = [
     prefix: 'Feva',
     suffix: 'Tak',
     restrict: WeaponTypes.Ranged,
-    posDesirability: StatDesirability.plus,
+    posDesirability: StatDesirability.minus,
     negDesirability: StatDesirability.plus
   }),
   new RivenStat({name: 'Range', prefix: 'Locti', suffix: 'Tor', restrict: WeaponTypes.Melee}),
@@ -127,7 +127,7 @@ export const RivenStats: RivenStat[] = [
     prefix: 'Zeti',
     suffix: 'Mag',
     restrict: WeaponTypes.Ranged,
-    posDesirability: StatDesirability.plus,
+    posDesirability: StatDesirability.minus,
     negDesirability: StatDesirability.plus
   }),
   new RivenStat({
@@ -145,7 +145,7 @@ export const RivenStats: RivenStat[] = [
     posDesirability: StatDesirability.minus,
     negDesirability: StatDesirability.plus
   }),
-  new RivenStat({name: 'Toxin Damage', prefix: 'Toxi', suffix: 'Tox'}),
+  new RivenStat({name: 'Toxin Damage', prefix: 'Toxi', suffix: 'Tox', negativeBlocked: true}),
   new RivenStat({
     name: 'Zoom',
     prefix: 'Hera',
