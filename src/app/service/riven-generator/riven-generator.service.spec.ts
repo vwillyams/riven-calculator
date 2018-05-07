@@ -4,14 +4,16 @@ import {RivenGeneratorService} from './riven-generator.service';
 import {RivenStats} from '../../const/riven-stat.values';
 import {RivenStatFilterService} from './riven-stat-filter.service';
 import {forkJoin} from 'rxjs/observable/forkJoin';
+import {RivenStatisticsService} from './internals/riven-statistics.service';
+import {SingleRivenGeneratorService} from './internals/single-riven-generator.service';
 
 describe('RivenGeneratorService', () => {
   let service;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [RivenGeneratorService, RivenStatFilterService]
+      providers: [RivenGeneratorService, RivenStatFilterService, SingleRivenGeneratorService, RivenStatisticsService]
     });
-    service = new RivenGeneratorService(new RivenStatFilterService());
+    service = new RivenGeneratorService(new RivenStatFilterService(), new SingleRivenGeneratorService(), new RivenStatisticsService());
   });
 
   it('should be created', () => {

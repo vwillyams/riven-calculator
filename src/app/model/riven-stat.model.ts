@@ -5,8 +5,8 @@ export class RivenStat {
   prefix?: string;
   suffix?: string;
   restrict?: string;
-  negativeBlocked: boolean;
-  class: string;
+  negativeBlocked?: boolean;
+  class?: string;
 
   private _posDesirability?: string;
   private _negDesirability?: string;
@@ -43,7 +43,7 @@ export class RivenStat {
     }
   }
 
-  constructor(obj: Object) {
+  constructor(obj?: Object) {
     if (obj) {
       Object.assign(this, obj);
     }

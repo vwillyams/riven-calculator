@@ -24,6 +24,8 @@ import {RivenStatFilterService} from './service/riven-generator/riven-stat-filte
 import {ProbabilityResultComponent} from './probability-result/probability-result.component';
 import {SimpleNumberPipe} from './simple-number.pipe';
 import {SingleResultComponent} from './single-result/single-result.component';
+import {SingleRivenGeneratorService} from './service/riven-generator/internals/single-riven-generator.service';
+import {RivenStatisticsService} from './service/riven-generator/internals/riven-statistics.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import {SingleResultComponent} from './single-result/single-result.component';
   providers: [
     RivenStatsService,
     RivenGeneratorService,
-    RivenStatFilterService
+    RivenStatFilterService,
+    SingleRivenGeneratorService,
+    RivenStatisticsService,
   ],
   bootstrap: [AppComponent]
 })
