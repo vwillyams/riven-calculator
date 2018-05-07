@@ -1,10 +1,13 @@
 <div *ngIf="result && !result.errors">
   <span>
-    You have a <strong>{{result.mean | simpleNumber:3 }}&#37; chance per roll</strong> to generate something matching
+    You have a <strong>{{result.mean * 100 | simpleNumber:3 }}&#37; chance per roll</strong> to generate something matching
     these requirements.
   </span>
-  <span *ngIf="result.requiredRolls">Simulations showed this requiring an average of <strong>{{result.requiredRolls | number}} Rolls</strong> to achieve.</span>
-  <span *ngIf="result.kuva">That would cost a total of <strong>{{result.kuva | simpleNumber:3 | number}} Kuva</strong>.</span>
+  <div *ngIf="result.mean">
+    <div>You would need <strong>{{result.getRolls() | number}} Rolls</strong> to have a <strong>better than 50% chance</strong> of rolling something matching these criteria.</div>
+    <div>That would cost a total of <strong>{{result.getKuva(result.getRolls()) | simpleNumber:3 | number}} Kuva</strong>.</div>
+    <div>You would need <strong>{{result.getRolls(0.05) | number}} Rolls</strong> to have a <strong>better than 95% chance</strong> of rolling something matching these criteria.</div>
+  </div>
 </div>
 <div *ngIf="result && result.errors">
   There were errors when attempting to generate your required statistics: {{result.errors}}

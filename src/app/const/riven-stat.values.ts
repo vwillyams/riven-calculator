@@ -81,7 +81,7 @@ export const RivenStats: RivenStat[] = [
     posDesirability: StatDesirability.minus,
     negDesirability: StatDesirability.plus
   }),
-  new RivenStat({name: 'Heat Damage', prefix: 'Igni', suffix: 'Pha'}),
+  new RivenStat({name: 'Heat Damage', prefix: 'Igni', suffix: 'Pha', negativeBlocked: true}),
   new RivenStat({
     name: 'Impact Damage',
     prefix: 'Magna',
